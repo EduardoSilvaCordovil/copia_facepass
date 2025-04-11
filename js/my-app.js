@@ -171,6 +171,17 @@ var app = new Framework7({
             }
         },
 
+        {
+            path: '/ppl/',
+            url: 'ppl.html',
+            on: {
+                pageInit: function (event, page) {
+                    //CONTEÚDO DA PÁGINA PRINCIPAL AQUI
+                    app.panel.close()
+                }
+            }
+        },
+
     ],
     // ... other parameters
 });
