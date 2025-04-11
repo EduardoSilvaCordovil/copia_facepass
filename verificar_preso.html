@@ -1,5 +1,5 @@
 <!-- Initial Page, "data-name" contains page name -->
-<div data-name="ppl" class="page">
+<div data-name="verificar_preso" class="page">
 
     <!-- Top Navbar -->
     <div id="NavBarTopoHome" class="navbar no-shadow tema-primario">
@@ -27,7 +27,7 @@
             <div class="card-body px-4 py-3">
                 <div class="row align-items-center">
                     <div class="col-9">
-                        <h4 class="fw-semibold mb-8">CAMERA</h4>
+                        <h4 class="fw-semibold mb-8">Verificar Preso</h4>
                     </div>
                     <div class="col-3">
                         <div class="text-center mb-n5">
@@ -38,9 +38,70 @@
             </div>
         </div>
 
-        <button id="get-access">Get access to camera</button>
-        <video autoplay></video>
-        <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                max-width: 800px;
+                margin: 0 auto;
+                padding: 20px;
+                text-align: center;
+            }
+            #cameraContainer {
+                margin: 20px 0;
+                position: relative;
+            }
+            #videoElement {
+                width: 100%;
+                max-width: 500px;
+                background-color: #000;
+                border-radius: 8px;
+            }
+            #captureButton, #switchCamera {
+                padding: 10px 20px;
+                margin: 10px;
+                font-size: 16px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+            #captureButton {
+                background-color: #4CAF50;
+                color: white;
+            }
+            #switchCamera {
+                background-color: #2196F3;
+                color: white;
+            }
+            #photoResult {
+                margin-top: 20px;
+            }
+            #capturedImage {
+                max-width: 100%;
+                border-radius: 8px;
+                border: 1px solid #ddd;
+            }
+            .controls {
+                margin: 20px 0;
+            }
+        </style>
+
+        <h1>Câmera PWA</h1>
+        <p>Tire fotos usando a câmera frontal ou traseira do seu dispositivo</p>
+        
+        <div id="cameraContainer">
+            <video id="videoElement" autoplay playsinline></video>
+        </div>
+        
+        <div class="controls">
+            <button id="switchCamera">Trocar Câmera</button>
+            <button id="captureButton">Tirar Foto</button>
+        </div>
+        
+        <div id="photoResult">
+            <h2>Foto Capturada</h2>
+            <canvas id="canvasElement" style="display:none;"></canvas>
+            <img id="capturedImage" alt="Foto capturada">
+        </div>
 
         <footer class="bg-light text-dark py-4 text-center border-top mt-4">
             <p class="mb-0">© 2025 FACEPASS - Todos os direitos reservados.</p>
