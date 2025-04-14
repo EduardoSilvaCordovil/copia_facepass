@@ -1,0 +1,61 @@
+<!-- Initial Page, "data-name" contains page name -->
+<div data-name="login" class="page">
+
+    <!-- Top Navbar -->
+    <div id="NavBarTopoHome" class="navbar no-shadow tema-primario">
+        <div class="navbar-inner">
+            <div class="left">
+                <a class="link icon-only panel-open" id="MenuPrincipal" data-panel="left">
+                    <i class="mdi mdi-arrow-left"></i>
+                </a>
+            </div>
+            <div class="logo-facepass"><img src="img/dark-logo.svg" alt="dark-logo.svg"></div>
+
+        </div>
+    </div>
+
+    <!-- Scrollable page content -->
+    <div class="page-content">
+        <!-- CONTEUDO DA PAGINA AQUI -->
+
+        <div class="col-xl-4 col-lg-5 col-md-7 d-flex flex-column mx-lg-0 mx-auto">
+            <div class="card card-plain">
+                <div class="card-header pb-0 text-start">
+                    <h4 class="font-weight-bolder">Acessar o sistema</h4>
+                    <p class="mb-0">Digite seu e-mail e senha para acessar</p>
+                </div>
+                <div class="card-body">
+                    <form>
+                        <div class="mb-3">
+                            <input type="email" name="email" value="" class="form-control form-control-lg"
+                                placeholder="Seu e-mail" aria-label="Email">
+                        </div>
+                        <div class="mb-3">
+                            <input type="password" name="password" value="" class="form-control form-control-lg"
+                                placeholder="Sua senha" aria-label="Password">
+                        </div>
+                        <!-- <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="lembreMe" name="user_remember"
+                                {{cookie_remember}}>
+                            <label class="form-check-label" for="lembreMe">Lembre-me</label>
+                        </div> -->
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-lg btn-dark btn-lg w-100 mt-4 mb-0"> Acessar </button>
+                        </div>
+                    </form>
+                </div>
+                <!-- <div class="card-footer text-center pt-0 px-lg-2 px-1">
+                    <p class="text-sm mx-auto">
+                        Esqueceu sua senha?
+                        <a href="{{URL}}/sistema/recuperar" class="text-primary text-dark font-weight-bold">Clique aqui</a>
+                    </p>
+                    <p class="mb-4 text-sm mx-auto">
+                        Ainda não possui registro?
+                        <a href="{{URL}}/sistema/registrar" class="text-primary text-dark font-weight-bold">Registre-se</a>
+                    </p>
+                </div> -->
+            </div>
+        </div>
+
+    </div>
+</div>

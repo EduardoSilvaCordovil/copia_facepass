@@ -1,4 +1,4 @@
-let myPrompt;
+// let myPrompt;
 const pwaAlert = document.querySelector('.pwa_alert');
 const btnPwa = document.querySelector('.pwa_alert_btn');
 
@@ -37,6 +37,7 @@ btnPwa.addEventListener('click', () => {
 document.addEventListener('deviceready', onDeviceReady.bind(this), false);
 
 var app = new Framework7({
+
     // App root element
     root: '#app',
     // App Name
@@ -182,7 +183,19 @@ var app = new Framework7({
             }
         },
 
+        {
+            path: '/verificar_preso_2/',
+            url: 'verificar_preso_2.html',
+            on: {
+                pageInit: function (event, page) {
+                    //CONTEÚDO DA PÁGINA PRINCIPAL AQUI
+                    app.panel.close()
+                }
+            }
+        },
+
     ],
+    
     // ... other parameters
 });
 
@@ -201,82 +214,4 @@ function onDeviceReady() {
         var nome = app.views.main.router.url;
     }
 
-}
-
-// Elementos do DOM
-const videoElement = document.getElementById('videoElement');
-const canvasElement = document.getElementById('canvasElement');
-const capturedImage = document.getElementById('capturedImage');
-const captureButton = document.getElementById('captureButton');
-const switchCameraButton = document.getElementById('switchCamera');
-
-// Variáveis de estado
-let currentStream = null;
-let facingMode = "environment"; // Padrão: câmera traseira ("environment")
-
-// Função para iniciar a câmera
-async function startCamera() {
-    // Parar o stream atual, se existir
-    if (currentStream) {
-        currentStream.getTracks().forEach(track => track.stop());
-    }
-
-    const constraints = {
-        video: {
-            facingMode: facingMode,
-            width: { ideal: 1280 },
-            height: { ideal: 720 }
-        },
-        audio: false
-    };
-
-    try {
-        const stream = await navigator.mediaDevices.getUserMedia(constraints);
-        videoElement.srcObject = stream;
-        currentStream = stream;
-    } catch (err) {
-        console.error("Erro ao acessar a câmera:", err);
-        alert("Não foi possível acessar a câmera. Por favor, verifique as permissões.");
-    }
-}
-
-// Função para capturar foto
-function capturePhoto() {
-    if (!currentStream) return;
-
-    // Ajustar o canvas para o tamanho do vídeo
-    const videoSettings = currentStream.getVideoTracks()[0].getSettings();
-    canvasElement.width = videoSettings.width;
-    canvasElement.height = videoSettings.height;
-
-    // Desenhar o frame atual do vídeo no canvas
-    const context = canvasElement.getContext('2d');
-    context.drawImage(videoElement, 0, 0, canvasElement.width, canvasElement.height);
-
-    // Converter canvas para imagem e exibir
-    capturedImage.src = canvasElement.toDataURL('image/jpeg');
-    capturedImage.style.display = 'block';
-
-    // Aqui você pode adicionar código para salvar a foto ou processá-la
-    // Por exemplo: savePhoto(canvasElement.toDataURL('image/jpeg'));
-}
-
-// Função para trocar entre câmeras
-function switchCamera() {
-    facingMode = facingMode === "user" ? "environment" : "user";
-    startCamera();
-}
-
-// Event Listeners
-captureButton.addEventListener('click', capturePhoto);
-switchCameraButton.addEventListener('click', switchCamera);
-
-// Iniciar a câmera quando a página carregar
-window.addEventListener('DOMContentLoaded', () => {
-    startCamera();
-});
-
-// Opcional: Verificar se a API MediaDevices é suportada
-if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-    alert('A API de câmera não é suportada neste navegador.');
 }
