@@ -10,103 +10,27 @@
                 </a>
             </div>
             <div class="logo-facepass"><img src="img/dark-logo.svg" alt="dark-logo.svg"></div>
-            <!--<div class="title" id="titleApp" style="font-size:13px">Dashboard</div>-->
         </div>
     </div>
 
     <!-- Scrollable page content -->
     <div class="page-content">
-        <!-- CONTEUDO DA PAGINA AQUI 
-        <div class="block-title"><h4>Dashboard</h4></div>
+        <!-- CONTEUDO DA PAGINA AQUI -->
+
         <div class="block">
-            <p>Donec et nulla auctor massa pharetra adipiscing ut sit amet sem. Suspendisse molestie velit vitae mattis
-                tincidunt. Ut sit amet quam mollis, vulputate turpis vel, sagittis felis. </p>
-        </div>-->
+            <form>
+                <div class="list no-hairlines-md">
 
-        <div class="card bg-info-subtle shadow-none position-relative overflow-hidden mb-4">
-            <div class="card-body px-4 py-3">
-                <div class="row align-items-center">
-                    <div class="col-9">
-                        <h4 class="fw-semibold mb-8">Verificar Preso</h4>
-                    </div>
-                    <div class="col-3">
-                        <div class="text-center mb-n5">
-                            <img src="img/ChatBc.png" alt="modernize-img" class="img-fluid mb-n4" />
-                        </div>
-                    </div>
+                    <a class="item-link" id="link-foto" onclick="verificarPreso()">
+                        <center><img src="img/sem-foto.jpg" id="foto" class="input-image"></center>
+                    </a>
+
                 </div>
-            </div>
+
+                <button type="submit" class="button button-fill primario" id="btn-salvar">Tirar Foto</button>
+
+            </form>
         </div>
 
-        <style>
-            body {
-                font-family: Arial, sans-serif;
-                max-width: 800px;
-                margin: 0 auto;
-                padding: 20px;
-                text-align: center;
-            }
-            #cameraContainer {
-                margin: 20px 0;
-                position: relative;
-            }
-            #videoElement {
-                width: 100%;
-                max-width: 500px;
-                background-color: #000;
-                border-radius: 8px;
-            }
-            #captureButton, #switchCamera {
-                padding: 10px 20px;
-                margin: 10px;
-                font-size: 16px;
-                border: none;
-                border-radius: 5px;
-                cursor: pointer;
-            }
-            #captureButton {
-                background-color: #4CAF50;
-                color: white;
-            }
-            #switchCamera {
-                background-color: #2196F3;
-                color: white;
-            }
-            #photoResult {
-                margin-top: 20px;
-            }
-            #capturedImage {
-                max-width: 100%;
-                border-radius: 8px;
-                border: 1px solid #ddd;
-            }
-            .controls {
-                margin: 20px 0;
-            }
-        </style>
-
-        <h1>Câmera PWA</h1>
-        <p>Tire fotos usando a câmera frontal ou traseira do seu dispositivo</p>
-        
-        <div id="cameraContainer">
-            <video id="videoElement" autoplay playsinline></video>
-        </div>
-        
-        <div class="controls">
-            <button id="switchCamera">Trocar Câmera</button>
-            <button id="captureButton">Tirar Foto</button>
-        </div>
-        
-        <div id="photoResult">
-            <h2>Foto Capturada</h2>
-            <canvas id="canvasElement" style="display:none;"></canvas>
-            <img id="capturedImage" alt="Foto capturada">
-        </div>
-
-        <footer class="bg-light text-dark py-4 text-center border-top mt-4">
-            <p class="mb-0">© 2025 FACEPASS - Todos os direitos reservados.</p>
-            <p class="small">Dúvidas? Entre em contato pelo <a href="{{URL_DASH}}/contato"
-                    class="text-info text-decoration-none">nosso suporte</a>.</p>
-        </footer>
     </div>
 </div>
