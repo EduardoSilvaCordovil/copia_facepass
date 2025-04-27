@@ -1,4 +1,4 @@
-<!-- Initial Page, "data-name" contains page name -->
+<!-- Página "verificar_preso" -->
 <div data-name="verificar_preso" class="page">
 
     <!-- Top Navbar -->
@@ -9,28 +9,28 @@
                     <i class="mdi mdi-arrow-left"></i>
                 </a>
             </div>
-            <div class="logo-facepass"><img src="img/dark-logo.svg" alt="dark-logo.svg"></div>
+            <div class="logo-facepass">
+                <img src="img/dark-logo.svg" alt="dark-logo.svg">
+            </div>
         </div>
     </div>
 
-    <!-- Scrollable page content -->
+    <!-- Conteúdo -->
     <div class="page-content">
-        <!-- CONTEUDO DA PAGINA AQUI -->
-
         <div class="block">
             <form>
                 <div class="list no-hairlines-md">
-
-                    <a class="item-link" id="link-foto" onclick="verificarPreso()">
-                        <center><img src="img/sem-foto.jpg" id="foto" class="input-image"></center>
+                    <a style="text-align:center" class="item-link" id="link-foto" onclick="verificarPreso()">
+                        <img src="img/sem-foto.jpg" id="foto" alt="Foto do usuário">
                     </a>
-
                 </div>
 
-                <button type="submit" class="button button-fill primario" id="btn-salvar">Tirar Foto</button>
+                <button type="button" class="button button-fill primario input-image" id="btn-salvar"
+                    onclick="verificarPreso()">
+                    Verificar Rosto
+                </button>
 
             </form>
         </div>
-
     </div>
 </div>

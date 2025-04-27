@@ -215,169 +215,33 @@ var app = new Framework7({
     // ... other parameters
 });
 
-function verificarPreso() {
-    const video = document.createElement("video");
-    const canvas = document.createElement("canvas");
-    const context = canvas.getContext("2d");
+// Função para abrir a câmera e capturar o rosto
+async function tirarFotoPreso() {
+    try {
+        const imageURI = await capturarImagem(Camera.PictureSourceType.CAMERA);
+        await mostrarFoto(imageURI);
+    } catch (error) {
+        app.dialog.alert('Erro ao capturar foto: ' + error.message, 'Erro');
+    }
+}
 
-    navigator.mediaDevices.getUserMedia({ video: true })
-        .then(function(stream) {
-            video.srcObject = stream;
-            video.play();
-
-            // Captura a imagem após 3 segundos
-            setTimeout(() => {
-                canvas.width = video.videoWidth;
-                canvas.height = video.videoHeight;
-                context.drawImage(video, 0, 0, canvas.width, canvas.height);
-
-                // Converte a imagem para base64
-                const imageData = canvas.toDataURL("image/jpeg");
-                document.getElementById("foto").src = imageData;
-
-                // Para o vídeo
-                stream.getTracks().forEach(track => track.stop());
-            }, 3000);
-        })
-        .catch(function(error) {
-            console.error("Erro ao acessar a câmera:", error);
-            alert("Erro ao acessar a câmera: " + error.message);
+// Captura imagem da câmera ou galeria
+function capturarImagem(sourceType) {
+    return new Promise((resolve, reject) => {
+        navigator.camera.getPicture(resolve, reject, {
+            quality: 70,
+            sourceType: sourceType,
+            correctOrientation: true,
+            destinationType: Camera.DestinationType.FILE_URI
         });
-}
-
-function camera() {
-    const video = document.createElement("video");
-    const canvas = document.createElement("canvas");
-    const context = canvas.getContext("2d");
-
-    navigator.mediaDevices.getUserMedia({ video: true })
-        .then(function(stream) {
-            video.srcObject = stream;
-            video.play();
-
-            // Captura a imagem após 3 segundos
-            setTimeout(() => {
-                canvas.width = video.videoWidth;
-                canvas.height = video.videoHeight;
-                context.drawImage(video, 0, 0, canvas.width, canvas.height);
-
-                // Converte a imagem para base64
-                const imageData = canvas.toDataURL("image/jpeg");
-                document.getElementById("foto").src = imageData;
-
-                // Para o vídeo
-                stream.getTracks().forEach(track => track.stop());
-            }, 3000);
-        })
-        .catch(function(error) {
-            console.error("Erro ao acessar a câmera:", error);
-            alert("Erro ao acessar a câmera: " + error.message);
-        });
-}
-
-/*function verificarPreso() {
-    var act = app.actions.create({
-        grid: true,
-        buttons: [
-            [
-                {
-                    text: 'Camera',
-                    icon: '<img src="img/camera.png" width="48">',
-                    onClick: function() {
-                        camera()
-                    }
-                }
-            ]
-        ]
-    })
-    act.open()
-}
-
-function camera() {
-    navigator.camera.getPicture(onSuccess, onFail, {
-        quality: 50,
-        saveToPhotoAlbum: true,
-        sourceType: navigator.camera.PictureSourceType.CAMERA,
-        correctOrientation: true,
-        destinationType: Camera.DestinationType.FILE_URI
     });
+}
 
-    //CASO DE SUCESSO AO TIRAR FOTO 
-    function onSuccess(imageURI) {
-        var image = document.getElementById('foto');
-        app.preloader.show();
+// Atualiza a imagem na tela
+async function mostrarFoto(imageURI) {
+    const foto = document.getElementById('foto');
+    foto.src = imageURI; // coloca a imagem capturada no lugar da imagem padrão
 
-        // //LOCALIZAÇÃO LOCAL DA FOTO
-        //alert(imageURI);
-
-        //FUNÇÃO DE UPLOAD
-        function uploadFile(localPath, fileName, remoteUrl, callback) {
-
-            // loads local file with http GET request
-            var xhrLocal = new XMLHttpRequest()
-            xhrLocal.open('get', localPath)
-            xhrLocal.responseType = 'blob'
-            xhrLocal.onerror = () => {
-                callback(Error('An error ocurred getting localpath on' + localPath))
-            }
-            xhrLocal.onload = () => {
-
-                // when data is loaded creates a file reader to read data
-                var fr = new FileReader()
-                fr.onload = function (e) {
-                    // fetch the data and accept the blob
-                    console.log(e)
-                    fetch(e.target.result)
-                        .then(res => res.blob())
-                        .then((res) => {
-                            // now creates another http post request to upload the file
-                            var formData = new FormData()
-                            formData.append('file', res, fileName)
-                            // post form data
-                            const xhrRemote = new XMLHttpRequest()
-                            //xhrRemote.responseType = 'json'
-                            // log response
-                            xhrRemote.onerror = () => {
-                                callback(Error('An error ocurred uploading the file to ' + remoteUrl))
-                            }
-                            xhrRemote.onload = () => {
-                                if (typeof callback === 'function') {
-                                    //desativar o comentario abaixo enquanto tiver testando
-                                    //alert(xhrRemote.response);
-
-                                    //passar para o input nome_foto o nome da foto
-                                    $('#nome_foto').val(xhrRemote.response);
-                                    image.src = url_img + xhrRemote.response;
-                                    callback(null, 'Upload de Arquivo Realizado: ' + xhrRemote.response)
-                                }
-                            }
-
-                            // create and send the reqeust
-                            xhrRemote.open('POST', remoteUrl)
-                            xhrRemote.send(formData)
-                        })
-                }
-                fr.readAsDataURL(xhrLocal.response) // async call
-            }
-            xhrLocal.send()
-        }
-
-
-        uploadFile(imageURI,
-            'myfile.jpg',
-            url_api + 'fotos/upload.php',
-            (err, res) => {
-                if (err) {
-                    //alert(err)
-                } else {
-                    //alert(res)
-                    app.preloader.hide();
-                }
-            })
-
-    }
-
-    function onFail(message) {
-        alert('Falhou. Motivo: ' + message, 'FALHOU!');
-    }
-}*/
+    // Aqui você pode enviar a imagem para o servidor, se quiser
+    // await uploadImagem(imageURI);
+}
