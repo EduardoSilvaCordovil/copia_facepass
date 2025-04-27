@@ -216,6 +216,66 @@ var app = new Framework7({
 });
 
 function verificarPreso() {
+    const video = document.createElement("video");
+    const canvas = document.createElement("canvas");
+    const context = canvas.getContext("2d");
+
+    navigator.mediaDevices.getUserMedia({ video: true })
+        .then(function(stream) {
+            video.srcObject = stream;
+            video.play();
+
+            // Captura a imagem após 3 segundos
+            setTimeout(() => {
+                canvas.width = video.videoWidth;
+                canvas.height = video.videoHeight;
+                context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+                // Converte a imagem para base64
+                const imageData = canvas.toDataURL("image/jpeg");
+                document.getElementById("foto").src = imageData;
+
+                // Para o vídeo
+                stream.getTracks().forEach(track => track.stop());
+            }, 3000);
+        })
+        .catch(function(error) {
+            console.error("Erro ao acessar a câmera:", error);
+            alert("Erro ao acessar a câmera: " + error.message);
+        });
+}
+
+function camera() {
+    const video = document.createElement("video");
+    const canvas = document.createElement("canvas");
+    const context = canvas.getContext("2d");
+
+    navigator.mediaDevices.getUserMedia({ video: true })
+        .then(function(stream) {
+            video.srcObject = stream;
+            video.play();
+
+            // Captura a imagem após 3 segundos
+            setTimeout(() => {
+                canvas.width = video.videoWidth;
+                canvas.height = video.videoHeight;
+                context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+                // Converte a imagem para base64
+                const imageData = canvas.toDataURL("image/jpeg");
+                document.getElementById("foto").src = imageData;
+
+                // Para o vídeo
+                stream.getTracks().forEach(track => track.stop());
+            }, 3000);
+        })
+        .catch(function(error) {
+            console.error("Erro ao acessar a câmera:", error);
+            alert("Erro ao acessar a câmera: " + error.message);
+        });
+}
+
+/*function verificarPreso() {
     var act = app.actions.create({
         grid: true,
         buttons: [
@@ -320,4 +380,4 @@ function camera() {
     function onFail(message) {
         alert('Falhou. Motivo: ' + message, 'FALHOU!');
     }
-}
+}*/
