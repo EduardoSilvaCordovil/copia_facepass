@@ -215,33 +215,48 @@ var app = new Framework7({
     // ... other parameters
 });
 
-// Função para abrir a câmera e capturar o rosto
-async function tirarFotoPreso() {
-    try {
-        const imageURI = await capturarImagem(Camera.PictureSourceType.CAMERA);
-        await mostrarFoto(imageURI);
-    } catch (error) {
-        app.dialog.alert('Erro ao capturar foto: ' + error.message, 'Erro');
+var application = {
+    // Inicializa a aplicação
+    initialize: function () {
+        this.bindEvents();
+    },
+
+    // Associa eventos necessários
+    bindEvents: function () {
+        document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
+    },
+
+    // Chamado quando o dispositivo estiver pronto
+    onDeviceReady: function () {
+        console.log('Dispositivo pronto!');
+        // Aqui você poderia preparar outras coisas se quiser
+    },
+
+    // Função para capturar o rosto
+    verificarRosto: function () {
+        navigator.camera.getPicture(
+            this.onSuccess,
+            this.onFail,
+            {
+                quality: 50,
+                destinationType: Camera.DestinationType.DATA_URL,
+                saveToPhotoAlbum: true
+            }
+        );
+    },
+
+    // Se captura com sucesso
+    onSuccess: function (imageData) {
+        var image = document.getElementById('minhaImagem');
+        image.style.display = "block";
+        image.src = "data:image/jpeg;base64," + imageData;
+    },
+
+    // Se falhar
+    onFail: function (message) {
+        alert('Falhou porque: ' + message);
     }
-}
+};
 
-// Captura imagem da câmera ou galeria
-function capturarImagem(sourceType) {
-    return new Promise((resolve, reject) => {
-        navigator.camera.getPicture(resolve, reject, {
-            quality: 70,
-            sourceType: sourceType,
-            correctOrientation: true,
-            destinationType: Camera.DestinationType.FILE_URI
-        });
-    });
-}
-
-// Atualiza a imagem na tela
-async function mostrarFoto(imageURI) {
-    const foto = document.getElementById('foto');
-    foto.src = imageURI; // coloca a imagem capturada no lugar da imagem padrão
-
-    // Aqui você pode enviar a imagem para o servidor, se quiser
-    // await uploadImagem(imageURI);
-}
+// Inicializa ao carregar a página
+application.initialize();

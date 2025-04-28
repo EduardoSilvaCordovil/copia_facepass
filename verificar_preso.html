@@ -18,19 +18,11 @@
     <!-- Conteúdo -->
     <div class="page-content">
         <div class="block">
-            <form>
-                <div class="list no-hairlines-md">
-                    <a style="text-align:center" class="item-link" id="link-foto" onclick="verificarPreso()">
-                        <img src="img/sem-foto.jpg" id="foto" alt="Foto do usuário">
-                    </a>
-                </div>
+            <div id="deviceReady">
+                <p><button onclick="application.verificarRosto()">VERIFICAR ROSTO</button></p>
+                <p><img style="display: none; width: 250px; height: 250px;" id="minhaImagem" src="" /></p>
 
-                <button type="button" class="button button-fill primario input-image" id="btn-salvar"
-                    onclick="verificarPreso()">
-                    Verificar Rosto
-                </button>
-
-            </form>
+            </div>
         </div>
+
     </div>
-</div>
